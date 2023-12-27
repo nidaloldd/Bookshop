@@ -2,6 +2,7 @@
 
 import "../App.css";
 import { useEffect, useState } from "react";
+import logo from "./logo.svg";
 
 interface Books {
   id: number;
@@ -13,15 +14,15 @@ interface Books {
 }
 
 function Dashboard() {
-  const [data, setData] = useState<Books[]>();
+  const [bookData, setBookData] = useState<Books[]>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api")
       .then((response) => response.json())
-      .then((data) => {
-        setData(data);
+      .then((bookData) => {
+        setBookData(bookData);
       });
   }, []);
 
@@ -47,16 +48,17 @@ function Dashboard() {
       <h1 className="text-3xl font-bold mb-8 text-center">Elegant Bookshop</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {data &&
-          data.map((costumer: Books) => (
+        {bookData &&
+          bookData.map((costumer: Books) => (
             <>
               <div className="bg-white rounded-lg overflow-hidden shadow-md">
                 <div className="relative">
                   <img
-                    src={costumer.imageSource}
+                    src={`http://localhost:8081/img/${costumer.id}`}
                     alt="Book Cover"
                     className="w-full h-64 object-cover"
                   />
+                  <div>{costumer.id}</div>
                   <span className="absolute top-0 right-0 bg-green-500 text-white px-2 py-1 m-2 rounded-full">
                     New
                   </span>

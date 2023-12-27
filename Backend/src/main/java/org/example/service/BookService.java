@@ -14,4 +14,5 @@ public interface BookService {
     Book updateBook(Long id, Book rolePlayChange);
 
     void deleteBook(Long id);
+    public List<String> getAllGenresForBook(Long bookId);
 }
