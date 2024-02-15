@@ -1,11 +1,9 @@
 /** @format */
 
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import Books from "./pages/Books";
+import BookProfile from "./pages/BookProfile";
 
 function App() {
   return (
@@ -13,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Customers" element={<Books />} />
+        <Route path="/BookProfile" element={<BookProfile />} />
       </Routes>
     </BrowserRouter>
   );
