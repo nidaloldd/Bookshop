@@ -28,8 +28,8 @@ public class BookRestController {
         this.imageService = imageService;
     }
 
-    @GetMapping
-    public List<Book> getAllRolePlays() {
+    @GetMapping("/allBooks")
+    public List<Book> getAllBooks() {
         return bookService.getAllBooks();
     }
 

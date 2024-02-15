@@ -41,7 +41,6 @@ public class BookPopulator implements DBPopulator {
                 "The Forgotten Library: Chronicles of Lost Lore",
                 "Jackson Blackthorn",
                 12d,
-                "static/img/bookCovers/1.jpg",
                 genreRepository.findByGenreType(GenreType.FANTASY),
                 genreRepository.findByGenreType(GenreType.MYSTERY),
                 genreRepository.findByGenreType(GenreType.ADVENTURE)

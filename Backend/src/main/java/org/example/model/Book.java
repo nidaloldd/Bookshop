@@ -1,5 +1,6 @@
 package org.example.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -17,33 +18,25 @@ import java.util.stream.Collectors;
 @Table(name="book")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NonNull
     private  Long id;
     @NonNull
     private String title;
     @NonNull
     private String author;
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "book_genres",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "genres_id")
+            joinColumns = { @JoinColumn(name = "book_id") },
+            inverseJoinColumns = { @JoinColumn(name = "genre_id") }
     )
     private Set<Genre> genres = new HashSet<>();
+
+
     @NonNull
     private double price;
-    @Getter @Setter
-    private String imageSource;
-
-    public Book(@NonNull Long id, @NonNull String title, @NonNull String author, @NonNull double price, String imageSource ,@NonNull Genre... genres) {
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.genres = convertArrayToSet(genres);
-        this.price = price;
-        this.imageSource = imageSource;
-    }
 
     public Book(@NonNull Long id, @NonNull String title, @NonNull String author,@NonNull double price ,@NonNull Genre... genres) {
         this.id = id;
@@ -51,7 +44,6 @@ public class Book {
         this.author = author;
         this.genres = convertArrayToSet(genres);
         this.price = price;
-        this.imageSource = "https://placekitten.com/300/400";
     }
     private static <T> Set<T> convertArrayToSet(T array[]) {
         return Arrays.stream(array).collect(
